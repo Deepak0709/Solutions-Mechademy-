@@ -1,10 +1,4 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[ ]:
-
-
-from model_function import *
+from model_function import *  # model_funtion.py is the main program that calls model.py program.
 import pandas as pd
 import numpy as np
 
@@ -23,21 +17,23 @@ df_2 = data_mapping(df_1)   #removes redundant data and convert strings variable
 
 if do_data_visualisation:
     
-    #create_plot(X, plot-type, hue = False | True, data) for x-axis these are the options year, mileage(kilometers) or volume(cm3). Plot type can be scatter or bar.
+    # create_plot(X, plot-type, hue = False | True, data) for x-axis these are the options year, mileage(kilometers) or volume(cm3) and categorical columns. 
+    # Plot type can be scatter(For priceUSD vs numerical) or bar(For priceUSD vs categorical columns).
     do_hue = False
-    create_plot('year', 'scatter', do_hue, '_',df_2) #scatter plot - price vs year (without hue)
+    create_plot('year', 'scatter', do_hue, '_',df_2) # scatter plot - price vs year (without hue)
     
     do_hue = True
-    create_plot('year', 'scatter', do_hue , 'drive_unit', df_2) #scatter plot - price vs year (with hue = drive_unit )
+    create_plot('year', 'scatter', do_hue , 'drive_unit', df_2) # scatter plot - price vs year (with hue = drive_unit )
     
     do_hue = False
-    create_plot('drive_unit', 'bar', do_hue, '_', df_2) #bar plot - price vs drive_unit (without hue)
+    create_plot('drive_unit', 'bar', do_hue, '_', df_2) # bar plot - price vs drive_unit (without hue)
     
     do_hue = True
-    create_plot('drive_unit', 'bar', do_hue ,'fuel_type', df_2) #bar plot price vs drive_unit (with hue = 'fuel_type')
-    
+    create_plot('drive_unit', 'bar', do_hue ,'fuel_type', df_2) # bar plot price vs drive_unit (with hue = 'fuel_type')
 
-X_train, X_test, y_train, y_test = split_train_test_data(df_2) # splitting the data into train and test set.
+    
+# splitting the data into train and test set.
+X_train, X_test, y_train, y_test = split_train_test_data(df_2) 
     
 #Scaling the data. 
 scaler = MinMaxScaler()
@@ -61,5 +57,5 @@ segment = 4                        #(1 to 9)
 
 data = [[year, condition, mileage_kilometers, fuel_type, volume_cm3, transmission, drive_unit, segment]]
 data = np.array(data)
-predict(data, model, scaler)
+predict(data, model, scaler)       # calling predict function from model.py program
 
