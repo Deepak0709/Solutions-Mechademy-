@@ -1,4 +1,4 @@
-from model_function import *   # model_function is the main function which calls the model.py and neural_model.py programs.
+from model_function import *   # model_function.py is the main program which calls the model.py and neural_model.py programs.
 import pandas as pd
 
 # Input variables
@@ -9,13 +9,13 @@ batch = 128
 
 #===========================================================================================================================
 
-# NOTE: There are two columns to predict namely GT Compressor decay state coefficient, GT Turbine decay state coefficient,
-#       in the sample example beow the models are predicting GT Compressor decay state coefficient, for predicting the 
+# NOTE: There are two columns to predict namely GT Compressor decay state coefficient and GT Turbine decay state coefficient,
+#       in the sample example below the models are predicting GT Compressor decay state coefficient, for predicting the 
 #       just un-comment the second exmample which is commneted.
 
 
-X,y=data(df, 'GT Compressor decay state coefficient.') #The second argument is the column we want to predict out of the two,
-                                                   #GT Compressor decay state coefficient, GT Turbine decay state coefficient.
+X,y = data(df, 'GT Compressor decay state coefficient.') #The second argument is the column we want to predict out of the two,
+                                                         #GT Compressor decay state coefficient. or GT Turbine decay state coefficient.
 
 feature_selector(X, y)
 X = imp_data(X)
@@ -25,11 +25,11 @@ scaler = MinMaxScaler()
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
 
-#the last argument in the functin below is the type of model we wish to use among Linear, Ridge, Lasso
+#the last argument in the functin below is the type of model we wish to use among Linear, Ridge or Lasso.
 predictions,error,coefficients,intercept, mae, rmse, model = create_model(X_train, X_test, y_train, y_test, 'Linear')  
                                                                                              
 #We can use a neural network also for predicting the target.
-#predictions_n,error_n,weight_n, mae, rmse, model_n = neural_network(X_train, X_test, y_train, y_test, epoch, batch) 
+predictions_n,error_n,weight_n, mae, rmse, model_n = neural_network(X_train, X_test, y_train, y_test, epoch, batch) 
 
 #============================================= (AN EXAMPLE PREDICTION)===================================================
 
@@ -60,7 +60,8 @@ data = [[Lever_position_lp, Ship_speed_v_knots, Gas_Turbine_shaft_torque_GTT_kNm
          Turbine_Injecton_Control_TIC_percentage, Fuel_flow_mf_kg_per_second, GT_Turbine_decay_state_coefficient]]
 
 data = np.array(data)
-predict(data, model_n, scaler) # In second argument provide the model name which was used to made predicitons on test data.
+predict(data, model_n, scaler) # Calling predict function from model_funtion.py
+                               # In second argument provide the model name which was used to made predicitons on test data.
 #=======================================================================================================================
 
 
@@ -122,8 +123,3 @@ predict(data, model_n, scaler) # In second argument provide the model name which
 #          Turbine_Injecton_Control_TIC_percentage, Fuel_flow_mf_kg_per_second, GT_Compressor_decay_state_coefficient]]
 # data = np.array(data)
 # predict(data, model, scaler) # provide the model which was used to made predicitons on test data.
-
-
-
-
-
